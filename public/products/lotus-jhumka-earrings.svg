@@ -1,0 +1,17 @@
+<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" fill="#1a1310"/>
+  <g transform="translate(245 210)">
+    <circle cx="0" cy="0" r="24" fill="#efc77f"/>
+    <path d="M0 28L0 84" stroke="#d59d51" stroke-width="10"/>
+    <path d="M-48 110C-18 65 18 65 48 110" fill="#b54b57" stroke="#f1d3a2" stroke-width="8"/>
+    <path d="M-56 112H56C46 170 26 210 0 232C-26 210 -46 170 -56 112Z" fill="#d4a255" stroke="#f4d5a2" stroke-width="8"/>
+    <g fill="#f7e0ba"><circle cx="-28" cy="238" r="10"/><circle cx="0" cy="246" r="10"/><circle cx="28" cy="238" r="10"/></g>
+  </g>
+  <g transform="translate(555 210)">
+    <circle cx="0" cy="0" r="24" fill="#efc77f"/>
+    <path d="M0 28L0 84" stroke="#d59d51" stroke-width="10"/>
+    <path d="M-48 110C-18 65 18 65 48 110" fill="#b54b57" stroke="#f1d3a2" stroke-width="8"/>
+    <path d="M-56 112H56C46 170 26 210 0 232C-26 210 -46 170 -56 112Z" fill="#d4a255" stroke="#f4d5a2" stroke-width="8"/>
+    <g fill="#f7e0ba"><circle cx="-28" cy="238" r="10"/><circle cx="0" cy="246" r="10"/><circle cx="28" cy="238" r="10"/></g>
+  </g>
+</svg>

@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useAppContext } from '@/context/AppContext';
+import { defaultProducts } from '@/data/products';
 
 export default function Store() {
   const [products, setProducts] = useState([]);
@@ -15,9 +16,10 @@ export default function Store() {
     try {
       const res = await fetch('/api/products');
       const data = await res.json();
-      setProducts(data);
+      setProducts(Array.isArray(data) && data.length > 0 ? data : defaultProducts);
     } catch (error) {
       console.error('Failed to fetch products', error);
+      setProducts(defaultProducts);
     } finally {
       setLoading(false);
     }

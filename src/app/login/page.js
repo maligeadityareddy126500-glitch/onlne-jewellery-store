@@ -71,7 +71,7 @@ export default function Login() {
           </button>
         </form>
         <p style={{ textAlign: 'center', marginTop: '1.5rem', color: 'var(--text-secondary)' }}>
-          Don't have an account? <Link href="/register" style={{ color: 'var(--accent)' }}>Register here</Link>
+          Don&apos;t have an account? <Link href="/register" style={{ color: 'var(--accent)' }}>Register here</Link>
         </p>
       </div>
     </div>

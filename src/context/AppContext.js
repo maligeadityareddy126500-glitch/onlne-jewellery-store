@@ -1,24 +1,20 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const AppContext = createContext();
 
+const getStoredJson = (key, fallback) => {
+  if (typeof window === 'undefined') return fallback;
+
+  const value = localStorage.getItem(key);
+  return value ? JSON.parse(value) : fallback;
+};
+
 export function AppProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [cart, setCart] = useState([]);
-  const [token, setToken] = useState(null);
-
-  useEffect(() => {
-    // Load state from local storage on init
-    const storedUser = localStorage.getItem('user');
-    const storedToken = localStorage.getItem('token');
-    const storedCart = localStorage.getItem('cart');
-
-    if (storedUser) setUser(JSON.parse(storedUser));
-    if (storedToken) setToken(storedToken);
-    if (storedCart) setCart(JSON.parse(storedCart));
-  }, []);
+  const [user, setUser] = useState(() => getStoredJson('user', null));
+  const [cart, setCart] = useState(() => getStoredJson('cart', []));
+  const [token, setToken] = useState(() => (typeof window === 'undefined' ? null : localStorage.getItem('token')));
 
   const login = (userData, authToken) => {
     setUser(userData);

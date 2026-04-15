@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import connectToDatabase from '@/lib/mongodb';
 import Product from '@/models/Product';
+import { defaultProducts } from '@/data/products';
 import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
@@ -22,9 +23,13 @@ export async function GET() {
   try {
     await connectToDatabase();
     const products = await Product.find({}).sort({ createdAt: -1 });
-    return NextResponse.json(products, { status: 200 });
+    if (products.length > 0) {
+      return NextResponse.json(products, { status: 200 });
+    }
+
+    return NextResponse.json(defaultProducts, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: 'Error fetching products', error: error.message }, { status: 500 });
+    return NextResponse.json(defaultProducts, { status: 200 });
   }
 }
 

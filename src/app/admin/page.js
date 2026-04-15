@@ -12,30 +12,36 @@ export default function Admin() {
   
   const [newProduct, setNewProduct] = useState({ name: '', description: '', price: '', imageUrl: '', category: '' });
 
+  const refreshProducts = async () => {
+    const res = await fetch('/api/products');
+    const data = await res.json();
+    if(Array.isArray(data)) setProducts(data);
+  };
+
   useEffect(() => {
     if (!user) {
       router.push('/login');
     } else if (user.role !== 'admin') {
       router.push('/');
     } else {
-      fetchProducts();
-      fetchOrders();
+      const loadAdminData = async () => {
+        const [productsRes, ordersRes] = await Promise.all([
+          fetch('/api/products'),
+          fetch('/api/orders', {
+            headers: { 'Authorization': `Bearer ${token}` }
+          })
+        ]);
+
+        const productsData = await productsRes.json();
+        const ordersData = await ordersRes.json();
+
+        if (Array.isArray(productsData)) setProducts(productsData);
+        if (Array.isArray(ordersData)) setOrders(ordersData);
+      };
+
+      loadAdminData();
     }
-  }, [user]);
-
-  const fetchProducts = async () => {
-    const res = await fetch('/api/products');
-    const data = await res.json();
-    if(Array.isArray(data)) setProducts(data);
-  };
-
-  const fetchOrders = async () => {
-    const res = await fetch('/api/orders', {
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
-    const data = await res.json();
-    if(Array.isArray(data)) setOrders(data);
-  };
+  }, [router, token, user]);
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
@@ -50,7 +56,7 @@ export default function Admin() {
       });
       if (res.ok) {
         setNewProduct({ name: '', description: '', price: '', imageUrl: '', category: '' });
-        fetchProducts();
+        refreshProducts();
       }
     } catch (err) {
       console.error(err);
